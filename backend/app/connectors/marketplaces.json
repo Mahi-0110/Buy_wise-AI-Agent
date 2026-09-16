@@ -1,0 +1,101 @@
+[
+  {
+    "id": "A101",
+    "store": "Store A",
+    "title": "Sony WH-CH520 Wireless Headphones",
+    "brand": "Sony",
+    "price": 4490,
+    "specs": { "battery_hours": 50, "noise_cancellation": false },
+    "rating": 4.5,
+    "delivery_days": 2,
+    "in_stock": true
+  },
+  {
+    "id": "A102",
+    "store": "Store A",
+    "title": "JBL Tune 510BT Bluetooth",
+    "brand": "JBL",
+    "price": 2899,
+    "specs": { "battery_hours": 40, "noise_cancellation": false },
+    "rating": 4.3,
+    "delivery_days": 3,
+    "in_stock": true
+  },
+  {
+    "id": "A103",
+    "store": "Store A",
+    "title": "boAt Rockerz 450",
+    "brand": "boAt",
+    "price": 1499,
+    "specs": { "battery_hours": 15, "noise_cancellation": false },
+    "rating": 4.1,
+    "delivery_days": 2,
+    "in_stock": true
+  },
+  {
+    "id": "B201",
+    "store": "Store B",
+    "title": "Sony WH-CH520 BT",
+    "brand": "Sony",
+    "price": 4350,
+    "specs": { "battery_hours": 50, "noise_cancellation": false },
+    "rating": 4.6,
+    "delivery_days": 4,
+    "in_stock": true
+  },
+  {
+    "id": "B202",
+    "store": "Store B",
+    "title": "JBL 510BT Wireless",
+    "brand": "JBL",
+    "price": 2799,
+    "specs": { "battery_hours": 40, "noise_cancellation": false },
+    "rating": 4.2,
+    "delivery_days": 1,
+    "in_stock": true
+  },
+  {
+    "id": "B203",
+    "store": "Store B",
+    "title": "Soundcore Life Q20",
+    "brand": "Soundcore",
+    "price": 4999,
+    "specs": { "battery_hours": 40, "noise_cancellation": true },
+    "rating": 4.5,
+    "delivery_days": 2,
+    "in_stock": true
+  },
+  {
+    "id": "C301",
+    "store": "Store C",
+    "title": "Sony WH CH520",
+    "brand": "Sony",
+    "price": 4500,
+    "specs": { "battery_hours": 50, "noise_cancellation": false },
+    "rating": 4.5,
+    "delivery_days": 1,
+    "in_stock": true
+  },
+  {
+    "id": "C302",
+    "store": "Store C",
+    "title": "JBL Tune 510BT",
+    "brand": "JBL",
+    "price": 2999,
+    "specs": { "battery_hours": 40, "noise_cancellation": false },
+    "rating": 4.4,
+    "delivery_days": 2,
+    "in_stock": false
+  },
+  {
+    "id": "C303",
+    "store": "Store C",
+    "title": "boAt Rockerz 450 Pro",
+    "brand": "boAt",
+    "price": 1999,
+    "specs": { "battery_hours": 70, "noise_cancellation": false },
+    "rating": 4.2,
+    "delivery_days": 3,
+    "in_stock": true
+  }
+]
