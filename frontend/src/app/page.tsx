@@ -10,7 +10,7 @@ type Product = {
   model: string;
   best_price: number;
   best_store: string;
-  specs: any;
+  specs: Record<string, string | number>;
   rating: number;
   delivery_days: number;
   thumbnail?: string | null;
@@ -18,9 +18,6 @@ type Product = {
   product_url?: string;
   title?: string;
 };
-
-// Clean placeholder URL for when no images are available
-const PLACEHOLDER_IMAGE = "https://placehold.co/400x300/e2e8f0/1e293b?text=Product";
 
 export default function Dashboard() {
   const [goal, setGoal] = useState("");
@@ -30,7 +27,7 @@ export default function Dashboard() {
   
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
-  const [receipt, setReceipt] = useState<any>(null);
+  const [receipt, setReceipt] = useState<{ order_id: string; timestamp: string; amount_paid: number } | null>(null);
   const [spikeSimulated, setSpikeSimulated] = useState(false);
   const [haltedMessage, setHaltedMessage] = useState<string | null>(null);
   const [currentPrice, setCurrentPrice] = useState<number>(0);
@@ -71,7 +68,7 @@ export default function Dashboard() {
         rationale: data.tradeoff_rationale,
         candidates: data.top_candidates
       });
-    } catch (err) {
+    } catch {
       setTimeline(prev => [...prev, "[ERROR] Pipeline failed. Check backend connection."]);
     } finally {
       setLoading(false);
@@ -206,6 +203,7 @@ export default function Dashboard() {
               <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-700 mt-4 flex items-center gap-4">
                 {/* Product Image - using standard HTML img tag */}
                 <div className="w-32 h-32 flex-shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={product.thumbnail || undefined} alt={product.title || product.model} className="w-full h-48 object-cover rounded-xl bg-slate-800" />
                 </div>
                 <div className="flex-1">
@@ -225,7 +223,7 @@ export default function Dashboard() {
 
               <div className="mt-6 p-4 bg-slate-800/30 rounded-lg border border-slate-700/50">
                 <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">AI Trade-off Rationale</h3>
-                <p className="text-slate-200 leading-relaxed text-lg italic">"{session.rationale}"</p>
+                <p className="text-slate-200 leading-relaxed text-lg italic">&quot;{session.rationale}&quot;</p>
               </div>
 
               <div className="mt-6 flex justify-end gap-3">
