@@ -118,7 +118,7 @@ def get_realistic_products(query: str, max_budget: float) -> List[Dict[str, Any]
             "rating": 4.3 + (i * 0.1),
             "reviews_count": 180 + (i * 50),
             "thumbnail": matched_img,
-            "product_url": f"https://www.amazon.in/dp/B08L5WHFT{i}?tag=buywise",
+            "product_url": f"https://www.amazon.in/s?k={urllib.parse.quote(brands[i] + ' ' + query)}",
             "delivery_days": 2 + i,
             "in_stock": True,
             "specs": {"category": query}
