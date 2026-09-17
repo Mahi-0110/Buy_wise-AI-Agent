@@ -160,11 +160,11 @@ export default function Dashboard() {
         </div>
         
         <div className="flex gap-2 flex-wrap">
-          <button onClick={() => handleDemoClick("Wireless headphones under ₹3000 with ≥20h battery, preferably Sony or JBL")} className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-full text-slate-300 transition-colors">
-            Demo: Sony vs JBL Headphones
+          <button onClick={() => handleDemoClick("T shirts under ₹3000")} className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-full text-slate-300 transition-colors">
+            Demo: T Shirts
           </button>
-          <button onClick={() => handleDemoClick("Headphones with noise cancellation under ₹5000")} className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-full text-slate-300 transition-colors">
-            Demo: Noise Cancellation Focus
+          <button onClick={() => handleDemoClick("Headphones under ₹2000")} className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-full text-slate-300 transition-colors">
+            Demo: Headphones under 2000
           </button>
         </div>
       </section>
