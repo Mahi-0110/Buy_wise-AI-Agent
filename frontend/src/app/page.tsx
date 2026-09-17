@@ -193,59 +193,87 @@ export default function Dashboard() {
             (() => {
               const product = session.winner;
               return (
-            <div className="glass-panel p-6 border-emerald-500/30 relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-emerald-500/20 text-emerald-400 text-xs font-bold px-4 py-1 rounded-bl-lg flex items-center gap-1">
-                <ShieldCheck size={14} /> BUYWISE Verified Match
-              </div>
-              
-              <h2 className="text-xl font-bold text-white mb-2">Recommendation Ready</h2>
-              
-              <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-700 mt-4 flex items-center gap-4">
-                {/* Product Image - using standard HTML img tag */}
-                <div className="w-32 h-32 flex-shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={product.thumbnail || undefined} alt={product.title || product.model} className="w-full h-48 object-cover rounded-xl bg-slate-800" />
+            <div className="space-y-6">
+              <div className="glass-panel p-6 border-emerald-500/30 relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-emerald-500/20 text-emerald-400 text-xs font-bold px-4 py-1 rounded-bl-lg flex items-center gap-1">
+                  <ShieldCheck size={14} /> BUYWISE Verified Match
                 </div>
-                <div className="flex-1">
-                  <div className="text-sm text-slate-400">{product.brand}</div>
-                  <div className="text-2xl font-bold text-slate-100">{product.model}</div>
-                  <div className="mt-2 flex flex-wrap gap-3 text-sm">
-                    <span className="bg-slate-800 px-2 py-1 rounded text-slate-300">₹{product.best_price}</span>
-                    <span className="bg-slate-800 px-2 py-1 rounded text-slate-300">Store: {product.best_store}</span>
-                    <span className="bg-slate-800 px-2 py-1 rounded text-slate-300">{product.specs.battery_hours || 'N/A'}h Battery</span>
+                
+                <h2 className="text-xl font-bold text-white mb-2">Recommendation Ready</h2>
+                
+                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-700 mt-4 flex items-center gap-4">
+                  {/* Product Image - using standard HTML img tag */}
+                  <div className="w-32 h-32 flex-shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={product.thumbnail || undefined} alt={product.title || product.model} className="w-full h-48 object-cover rounded-xl bg-slate-800" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm text-slate-400">{product.brand}</div>
+                    <div className="text-2xl font-bold text-slate-100">{product.model}</div>
+                    <div className="mt-2 flex flex-wrap gap-3 text-sm">
+                      <span className="bg-slate-800 px-2 py-1 rounded text-slate-300">₹{product.best_price}</span>
+                      <span className="bg-slate-800 px-2 py-1 rounded text-slate-300">Store: {product.best_store}</span>
+                      <span className="bg-slate-800 px-2 py-1 rounded text-slate-300">{product.specs.battery_hours || 'N/A'}h Battery</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center justify-center bg-blue-500/10 border border-blue-500/20 w-24 h-24 rounded-full flex-shrink-0">
+                    <span className="text-3xl font-bold text-blue-400">{product.score}</span>
+                    <span className="text-xs text-blue-400/80 uppercase tracking-wider">Score</span>
                   </div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-blue-500/10 border border-blue-500/20 w-24 h-24 rounded-full flex-shrink-0">
-                  <span className="text-3xl font-bold text-blue-400">{product.score}</span>
-                  <span className="text-xs text-blue-400/80 uppercase tracking-wider">Score</span>
+
+                <div className="mt-6 p-4 bg-slate-800/30 rounded-lg border border-slate-700/50">
+                  <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">AI Trade-off Rationale</h3>
+                  <p className="text-slate-200 leading-relaxed text-lg italic">&quot;{session.rationale}&quot;</p>
+                </div>
+
+                <div className="mt-6 flex justify-end gap-3">
+                  <button 
+                    onClick={handlePrepare}
+                    disabled={authLoading}
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
+                  >
+                    {authLoading ? <Loader2 className="animate-spin" /> : <ShoppingBag />}
+                    Approve & Prepare Purchase
+                  </button>
                 </div>
               </div>
-
-              <div className="mt-6 p-4 bg-slate-800/30 rounded-lg border border-slate-700/50">
-                <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">AI Trade-off Rationale</h3>
-                <p className="text-slate-200 leading-relaxed text-lg italic">&quot;{session.rationale}&quot;</p>
-              </div>
-
-              <div className="mt-6 flex justify-end gap-3">
-                {product.product_url && (
-                  <a 
-                    href={product.product_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
-                  >
-                    View Product
-                  </a>
-                )}
-                <button 
-                  onClick={handlePrepare}
-                  disabled={authLoading}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
-                >
-                  {authLoading ? <Loader2 className="animate-spin" /> : <ShoppingBag />}
-                  Approve & Prepare Purchase
-                </button>
-              </div>
+              
+              {session.candidates && session.candidates.length > 1 && (
+                <div className="glass-panel p-6">
+                  <h3 className="text-lg font-medium text-slate-200 mb-4">Alternative Options</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {session.candidates
+                      .filter(c => c.canonical_id !== product.canonical_id)
+                      .slice(0, 4)
+                      .map((alt, idx) => (
+                      <div key={idx} className="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 flex gap-4">
+                        <div className="w-20 h-20 flex-shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={alt.thumbnail || undefined} alt={alt.title || alt.model} className="w-full h-full object-cover rounded-lg bg-slate-800" />
+                        </div>
+                        <div className="flex-1 flex flex-col justify-between">
+                          <div>
+                            <div className="text-xs text-slate-400">{alt.brand}</div>
+                            <div className="text-sm font-bold text-slate-200 line-clamp-2">{alt.model}</div>
+                            <div className="text-emerald-400 font-medium text-sm mt-1">₹{alt.best_price}</div>
+                          </div>
+                          {alt.product_url && (
+                            <a 
+                              href={alt.product_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 mt-2 w-fit"
+                            >
+                              Store Link <ChevronRight size={12} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
               );
             })()
