@@ -403,10 +403,10 @@ def decision_agent(state: dict) -> Dict[str, Any]:
             rationale_parts.append(f"faster delivery ({winner.delivery_days} vs {runnerup.delivery_days} days)")
             
         if rationale_parts:
-            rationale = f"{winner.brand} {winner.model} is recommended over {runnerup.brand} {runnerup.model} because it offers {', '.join(rationale_parts)} while being {price_text}."
+            rationale = f"{winner.brand} {winner.model} is recommended over {runnerup.brand} {runnerup.model} because it offers {', '.join(rationale_parts)} while being {price_text}. Direct Link: {winner.product_url}"
         else:
-            rationale = f"{winner.brand} {winner.model} is the top choice with a score of {winner.score:.1f}, offering good value at ₹{winner.best_price}."
+            rationale = f"{winner.brand} {winner.model} is the top choice with a score of {winner.score:.1f}, offering good value at ₹{winner.best_price}. Direct Link: {winner.product_url}"
     else:
-        rationale = f"{winner.brand} {winner.model} is the only product that met all your constraints, scoring {winner.score:.1f} at ₹{winner.best_price}."
+        rationale = f"{winner.brand} {winner.model} is the only product that met all your constraints, scoring {winner.score:.1f} at ₹{winner.best_price}. Direct Link: {winner.product_url}"
         
     return {"winner": winner, "tradeoff_rationale": rationale, "timeline": timeline}

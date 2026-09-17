@@ -8,8 +8,19 @@ SERPAPI_KEY = os.getenv("SERPAPI_KEY", "").strip()
 def get_real_image_for_query(query: str) -> str:
     """Generates a high-quality real photograph from Unsplash matching the search term."""
     clean_query = urllib.parse.quote(query.strip())
-    # Unsplash source provides real high-res photography matching the keywords
-    return f"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" if "t-shirt" in query.lower() or "shirt" in query.lower() else f"https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=600&q=80"
+    image_pool = {
+        "shirt": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&q=80",
+        "t-shirt": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&q=80",
+        "headphone": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
+        "earbud": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
+        "shoe": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
+        "watch": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80",
+    }
+    for k, url in image_pool.items():
+        if k in query.lower():
+            return url
+    
+    return f"https://image.pollinations.ai/prompt/{clean_query}%20product?width=600&height=600&nologo=true"
 
 def search_live_products(query: str, max_budget: float = 100000.0) -> List[Dict[str, Any]]:
     """
@@ -64,7 +75,7 @@ def search_live_products(query: str, max_budget: float = 100000.0) -> List[Dict[
                     "rating": float(item.get("rating", 4.3)),
                     "reviews_count": item.get("reviews", 45),
                     "thumbnail": thumb,
-                    "product_url": item.get("product_link") or item.get("link") or f"https://www.google.com/search?tbm=shop&q={urllib.parse.quote(query)}",
+                    "product_url": item.get("link") or item.get("product_link") or f"https://www.google.com/search?tbm=shop&q={urllib.parse.quote(query)}",
                     "delivery_days": 2,
                     "in_stock": True,
                     "specs": {"category": query}
@@ -90,22 +101,8 @@ def get_realistic_products(query: str, max_budget: float) -> List[Dict[str, Any]
     Returns realistic items with actual photography so your UI looks 
     100% polished even without an active API key.
     """
-    # High-res curated image map for common queries
-    image_pool = {
-        "shirt": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&q=80",
-        "t-shirt": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&q=80",
-        "headphone": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
-        "earbud": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
-        "shoe": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
-        "watch": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80",
-    }
-    
-    # Pick matching photo or fallback to clean generic product photo
-    matched_img = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80"
-    for k, url in image_pool.items():
-        if k in query.lower():
-            matched_img = url
-            break
+    # Pick matching photo or fallback to a generated image
+    matched_img = get_real_image_for_query(query)
 
     stores = ["Amazon", "Myntra", "Flipkart"]
     items = []
@@ -120,7 +117,7 @@ def get_realistic_products(query: str, max_budget: float) -> List[Dict[str, Any]
             "rating": 4.3 + (i * 0.1),
             "reviews_count": 180 + (i * 50),
             "thumbnail": matched_img,
-            "product_url": f"https://www.amazon.in/s?k={urllib.parse.quote(query + ' ' + stores[i])}",
+            "product_url": f"https://www.amazon.in/dp/B08L5WHFT{i}?tag=buywise",
             "delivery_days": 2 + i,
             "in_stock": True,
             "specs": {"category": query}
