@@ -105,14 +105,15 @@ def get_realistic_products(query: str, max_budget: float) -> List[Dict[str, Any]
     matched_img = get_real_image_for_query(query)
 
     stores = ["Amazon", "Myntra", "Flipkart"]
+    brands = ["Roadster", "Puma", "H&M"] if "shirt" in query.lower() else ["Sony", "JBL", "Boat"]
     items = []
     
     for i in range(3):
         items.append({
             "id": f"item_{i}",
             "store": stores[i],
-            "title": f"Classic {query.title()} - Premium Fit",
-            "brand": "Roadster" if "shirt" in query.lower() else "Sony",
+            "title": f"Classic {query.title()} - Edition {i+1}",
+            "brand": brands[i],
             "price": round(max_budget * (0.65 + (i * 0.10)), 0),
             "rating": 4.3 + (i * 0.1),
             "reviews_count": 180 + (i * 50),
