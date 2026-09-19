@@ -361,9 +361,11 @@ export default function Dashboard() {
               <CheckCircle2 size={32} />
             </div>
             <h2 className="text-2xl font-bold text-emerald-500">Purchase Verified!</h2>
-            <p className="text-slate-300 text-sm">Your order has been successfully placed.</p>
+            <p className="text-slate-300 text-sm">Your order from <span className="font-semibold text-white">{session?.winner?.best_store}</span> went to the cart.</p>
             
             <div className="bg-slate-900/50 rounded-lg p-4 text-left text-sm text-slate-400 space-y-2 mt-6">
+              <div className="flex justify-between"><span>Store:</span> <span className="text-white">{session?.winner?.best_store}</span></div>
+              <div className="flex justify-between"><span>Status:</span> <span className="text-emerald-300">Added to Cart</span></div>
               <div className="flex justify-between"><span>Order ID:</span> <span className="font-mono text-emerald-300">{receipt.order_id}</span></div>
               <div className="flex justify-between"><span>Timestamp:</span> <span>{new Date(receipt.timestamp).toLocaleString()}</span></div>
               <div className="flex justify-between"><span>Amount Paid:</span> <span className="text-white">₹{receipt.amount_paid}</span></div>
